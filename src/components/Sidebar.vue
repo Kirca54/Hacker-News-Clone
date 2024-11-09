@@ -1,8 +1,8 @@
 <template>
   <div class="sidebar">
     <ul class="menu-list">
-      <li><a href="#">All</a></li>
-      <li><a href="#">Hot</a></li>
+      <li><router-link to="/">All</router-link></li>
+      <li><router-link to="/hot">Hot</router-link></li>
       <li><a href="#">New</a></li>
       <li><a href="#">Top</a></li>
       <li><a href="#">Show</a></li>

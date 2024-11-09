@@ -16,22 +16,38 @@
 
 <script>
 export default {
+  props: {
+    isHot: {
+      type: Boolean,
+      default: false, // Defaults to false if no prop is passed
+    },
+  },
   data() {
     return {
       posts: [],
-      loading: true, // Loading state
+      loading: true,
     };
   },
   created() {
-    this.fetchPosts();
+    this.fetchPosts(); // Initial fetch when the component is created
+  },
+  watch: {
+    // Watch for changes in the 'isHot' prop and refetch posts
+    isHot() {
+      this.loading = true; // Show loading text when switching routes
+      this.fetchPosts(); // Re-fetch posts whenever the 'isHot' prop changes
+    }
   },
   methods: {
     async fetchPosts() {
       try {
-        const response = await fetch('https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty');
+        const url = this.isHot
+            ? 'https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty' // Hot posts (top posts)
+            : 'https://hacker-news.firebaseio.com/v0/newstories.json?print=pretty'; // New posts endpoint
+        const response = await fetch(url);
         const postIds = await response.json();
         const posts = [];
-        for (let i = 0; i < 30; i++) {
+        for (let i = 0; i < 10; i++) {
           const post = await fetch(`https://hacker-news.firebaseio.com/v0/item/${postIds[i]}.json?print=pretty`);
           posts.push(await post.json());
         }
@@ -39,14 +55,14 @@ export default {
       } catch (error) {
         console.error("Error fetching posts:", error);
       } finally {
-        this.loading = false; // Turn off loading after data is fetched
+        this.loading = false; // Hide loading text when posts are fetched
       }
     },
   },
 };
 </script>
 
-<style scoped>
+<style>
 .post-list-container {
   padding: 20px;
 }

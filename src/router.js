@@ -4,14 +4,15 @@ import PostDetail from './components/PostDetail.vue';
 
 // Define the routes for the app
 const routes = [
-    { path: '/', component: PostList }, // Home route - List of posts
-    { path: '/post/:id', component: PostDetail }, // Post detail route with dynamic post ID
+    { path: '/', component: PostList },
+    { path: '/hot', component: PostList, props: { isHot: true } },
+    { path: '/post/:id', component: PostDetail },
 ];
 
 // Create the Vue Router instance
 const router = createRouter({
-    history: createWebHistory(), // Using HTML5 history mode
-    routes, // Assign routes to the router
+    history: createWebHistory(),
+    routes,
 });
 
 export default router;
