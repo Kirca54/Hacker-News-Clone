@@ -11,7 +11,7 @@
       <!-- Main Content Area (right) -->
       <div class="content-area">
         <!-- Add your content here -->
-        <HelloWorld msg="Welcome to Your Vue.js App"/>
+        <router-view /> <!-- Vue 3 way of rendering routed components -->
       </div>
     </div>
   </div>
@@ -20,14 +20,14 @@
 <script>
 import Header from './components/Header.vue'
 import Sidebar from './components/Sidebar.vue'
-import HelloWorld from './components/HelloWorld.vue'
+//import HelloWorld from './components/HelloWorld.vue'
 
 export default {
   name: 'App',
   components: {
     Header,
     Sidebar,
-    HelloWorld
+    //HelloWorld
   }
 }
 </script>
