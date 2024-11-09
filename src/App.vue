@@ -35,26 +35,13 @@ export default {
 <style>
 #app {
   display: flex;
-  flex-direction: column; /* Stack header on top */
-  height: 100vh; /* Full viewport height */
+  flex-direction: column;
+  height: 100vh;
 }
 
 .main-container {
-  display: flex; /* Sidebar and content area in a row */
-  height: 100%; /* Full height of the container */
-}
-
-.sidebar {
-  width: 250px; /* Sidebar width */
-  background-color: #f4f4f4;
-  padding: 20px;
-  border-right: 1px solid #ddd;
-  height: 100%; /* Sidebar takes full height */
-}
-
-.menu-list {
-  list-style: none;
-  padding: 0;
+  display: flex;
+  height: 100%;
 }
 
 .menu-list li {
@@ -77,7 +64,7 @@ export default {
 }
 
 .content-area {
-  flex-grow: 1; /* Content area takes remaining space */
+  flex-grow: 1;
   padding: 20px;
   background-color: #fff;
 }
