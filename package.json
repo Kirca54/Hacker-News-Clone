@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "axios": "^1.7.7",
+    "register-service-worker": "^1.7.1",
+    "vue-router": "^4.4.5"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-pwa": "~4.5.9",
+    "@vue/cli-service": "^5.0.8"
+  }
+}
