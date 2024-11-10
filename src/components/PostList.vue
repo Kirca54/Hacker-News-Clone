@@ -1,6 +1,5 @@
 <template>
   <div class="post-list-container">
-
     <!-- Loading state -->
     <div v-if="loading" class="loading">
       <p>Loading posts...</p>
@@ -9,7 +8,6 @@
     <!-- Posts list -->
     <ul v-else>
       <li v-for="post in posts" :key="post.id" class="post-item">
-
         <!-- Post Title -->
         <router-link :to="'/post/' + post.id" class="post-link">{{ post.title }}</router-link>
 
@@ -37,6 +35,9 @@
 import { formatTime } from '@/utils';
 
 export default {
+  props: {
+    searchQuery: String,
+  },
   data() {
     return {
       posts: [],
@@ -51,6 +52,11 @@ export default {
     '$route.path'() {
       this.loading = true; // Show loading message when route changes
       this.fetchPosts(); // Fetch posts based on the new route
+    },
+    // Watch for changes in the search query and trigger search
+    searchQuery(newQuery) {
+      this.loading = true; // Show loading message when a search query is entered
+      this.fetchSearchResults(newQuery); // Fetch search results based on the new query
     },
   },
   methods: {
@@ -87,6 +93,21 @@ export default {
         this.posts = posts;
       } catch (error) {
         console.error("Error fetching posts:", error);
+      } finally {
+        this.loading = false;
+      }
+    },
+    async fetchSearchResults(query) {
+      if (!query) return; // Don't search if the query is empty
+
+      this.loading = true;
+      try {
+        // Call Algolia API for search results
+        const response = await fetch(`https://hn.algolia.com/api/v1/search?query=${query}`);
+        const data = await response.json();
+        this.posts = data.hits; // Use the Algolia hits
+      } catch (error) {
+        console.error("Error fetching search results:", error);
       } finally {
         this.loading = false;
       }

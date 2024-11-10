@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <!-- Header -->
-    <Header />
+    <Header @search="handleSearch" />
 
     <!-- Main container (header and sidebar) -->
     <div class="main-container">
@@ -10,26 +10,36 @@
 
       <!-- Main Content Area (right) -->
       <div class="content-area">
-        <!-- Add your content here -->
-        <router-view /> <!-- Vue 3 way of rendering routed components -->
+        <!-- PostList Component -->
+        <PostList :searchQuery="searchQuery" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import Header from './components/Header.vue'
-import Sidebar from './components/Sidebar.vue'
-//import HelloWorld from './components/HelloWorld.vue'
+import Header from './components/Header.vue';
+import Sidebar from './components/Sidebar.vue';
+import PostList from './components/PostList.vue';
 
 export default {
   name: 'App',
   components: {
     Header,
     Sidebar,
-    //HelloWorld
-  }
-}
+    PostList,
+  },
+  data() {
+    return {
+      searchQuery: '', // Store the search query
+    };
+  },
+  methods: {
+    handleSearch(query) {
+      this.searchQuery = query; // Update search query
+    },
+  },
+};
 </script>
 
 <style>

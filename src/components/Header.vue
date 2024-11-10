@@ -10,13 +10,31 @@
       </div>
     </div>
     <!-- Big Search Bar -->
-    <input type="text" placeholder="Search..." class="search-bar" />
+    <input
+        type="text"
+        placeholder="Search..."
+        class="search-bar"
+        v-model="searchQuery"
+        @keyup.enter="searchPosts"
+    />
+    <button @click="searchPosts">Search</button> <!-- Search Button -->
   </header>
 </template>
 
 <script>
 export default {
   name: 'Header',
+  data() {
+    return {
+      searchQuery: '', // Bind search input
+    };
+  },
+  methods: {
+    searchPosts() {
+      // Emit the search query to the parent component
+      this.$emit('search', this.searchQuery);
+    },
+  },
 };
 </script>
 
