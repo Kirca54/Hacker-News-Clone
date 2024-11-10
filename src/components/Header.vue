@@ -3,13 +3,18 @@
     <div class="logo-container">
       <!-- Logo -->
       <img src="../../public/img/icons/HNLogo.png" alt="Hacker News Logo" class="logo" />
-      <!-- Text split into two lines -->
       <div class="brand-name">
         <h1>Search</h1>
         <h1>Hacker News</h1>
       </div>
     </div>
-    <!-- Big Search Bar -->
+
+    <!-- Search button on the left of the search bar -->
+    <button class="search-button" @click="searchPosts">
+      <img src="../../public/img/icons/search.png" alt="Search Icon" class="search-icon" />
+    </button>
+
+    <!-- Search bar, long and next to the button -->
     <input
         type="text"
         placeholder="Search..."
@@ -17,7 +22,6 @@
         v-model="searchQuery"
         @keyup.enter="searchPosts"
     />
-    <button @click="searchPosts">Search</button> <!-- Search Button -->
   </header>
 </template>
 
@@ -26,12 +30,11 @@ export default {
   name: 'Header',
   data() {
     return {
-      searchQuery: '', // Bind search input
+      searchQuery: '',
     };
   },
   methods: {
     searchPosts() {
-      // Emit the search query to the parent component
       this.$emit('search', this.searchQuery);
     },
   },
@@ -44,25 +47,26 @@ export default {
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
-  background-color: white; /* White background */
-  border-bottom: 1px solid #ccc; /* Optional: add a bottom border to separate the header */
+  background-color: white;
+  border-bottom: 1px solid #ccc;
 }
 
 .logo-container {
   display: flex;
   align-items: center;
+  margin-right: 50px;
 }
 
 .logo {
-  width: 60px; /* Logo size */
+  width: 60px;
   height: 60px;
-  margin-right: 10px; /* Space between logo and text */
+  margin-right: 10px;
 }
 
 .brand-name {
   display: flex;
-  flex-direction: column; /* Stack the text vertically */
-  align-items: flex-start; /* Align text to the left */
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .brand-name h1 {
@@ -72,12 +76,25 @@ export default {
   line-height: 1.2;
 }
 
+.search-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  margin-right: 10px; /* Space between button and search bar */
+}
+
+.search-icon {
+  width: 20px;
+  height: 20px;
+}
+
 .search-bar {
   flex-grow: 1;
-  margin-left: 20px;
   padding: 10px;
   font-size: 1rem;
   border: 1px solid #ccc;
   border-radius: 4px;
+  width: 400px; /* Keep the bar long */
 }
 </style>

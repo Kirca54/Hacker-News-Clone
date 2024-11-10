@@ -3,12 +3,12 @@
     <!-- Header -->
     <Header @search="handleSearch" />
 
-    <!-- Main container (header and sidebar) -->
+    <!-- Main container -->
     <div class="main-container">
       <!-- Sidebar (left) -->
       <Sidebar />
 
-      <!-- Main Content Area (right) -->
+      <!-- Main Content Area -->
       <div class="content-area">
         <!-- PostList Component -->
         <PostList :searchQuery="searchQuery" />
@@ -31,12 +31,12 @@ export default {
   },
   data() {
     return {
-      searchQuery: '', // Store the search query
+      searchQuery: '',
     };
   },
   methods: {
     handleSearch(query) {
-      this.searchQuery = query; // Update search query
+      this.searchQuery = query;
     },
   },
 };

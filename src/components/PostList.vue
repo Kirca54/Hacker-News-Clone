@@ -98,14 +98,14 @@ export default {
       }
     },
     async fetchSearchResults(query) {
-      if (!query) return; // Don't search if the query is empty
+      if (!query) return;
 
       this.loading = true;
       try {
-        // Call Algolia API for search results
+        // Algolia API for search results
         const response = await fetch(`https://hn.algolia.com/api/v1/search?query=${query}`);
         const data = await response.json();
-        this.posts = data.hits; // Use the Algolia hits
+        this.posts = data.hits;
       } catch (error) {
         console.error("Error fetching search results:", error);
       } finally {
