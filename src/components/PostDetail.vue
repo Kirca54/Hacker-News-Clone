@@ -8,6 +8,23 @@
     <!-- Post Title -->
     <h2 class="post-title">{{ post.title }}</h2>
 
+    <!-- Post Metadata (Points, User, and Time Posted) -->
+    <div class="post-metadata">
+      <div class="post-points">
+        <img src="@/assets/hearth.png" alt="Points Icon" class="icon" />
+        {{ post.score }} points
+      </div>
+      <div class="post-user">
+        <img src="@/assets/user.png" alt="User Icon" class="icon" />
+        by {{ post.by }}
+      </div>
+      <div class="post-time">
+        <img src="@/assets/clock.png" alt="Time Icon" class="icon" />
+        {{ formatTime(post.time) }}
+      </div>
+    </div>
+
+    <br>
     <!-- Link to the original post -->
     <div v-if="post.url" class="post-link">
       <a :href="post.url" target="_blank" rel="noopener noreferrer">View Original Post</a>
@@ -27,6 +44,7 @@
 <script>
 // Import the Comment component
 import Comment from './Comment.vue';
+import { formatTime } from '@/utils';
 
 export default {
   components: {
@@ -70,12 +88,12 @@ export default {
       }
       return comments;
     },
+    formatTime,
   },
 };
 </script>
 
-
-<style>
+<style scoped>
 .post-detail-container {
   padding: 20px;
   background-color: #f9f9f9;
@@ -110,6 +128,28 @@ export default {
 .post-title {
   font-size: 2rem;
   color: #2c3e50;
+}
+
+.post-metadata {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1rem;
+  color: #7f8c8d;
+  margin-top: 10px;
+}
+
+.post-points,
+.post-user,
+.post-time {
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  width: 16px; /* Adjust icon size */
+  height: 16px;
+  margin-right: 5px; /* Space between icon and text */
 }
 
 .post-link a {
