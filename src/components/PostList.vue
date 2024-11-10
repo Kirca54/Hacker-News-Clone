@@ -1,5 +1,6 @@
 <template>
   <div class="post-list-container">
+
     <!-- Loading state -->
     <div v-if="loading" class="loading">
       <p>Loading posts...</p>
@@ -8,21 +9,22 @@
     <!-- Posts list -->
     <ul v-else>
       <li v-for="post in posts" :key="post.id" class="post-item">
+
         <!-- Post Title -->
         <router-link :to="'/post/' + post.id" class="post-link">{{ post.title }}</router-link>
 
-        <!-- Post Metadata (Points, User, and Time) under the title -->
+        <!-- Post Metadata -->
         <div class="post-metadata">
           <div class="post-points">
-            <img src="@/assets/hearth.png" alt="Points Icon" class="icon" />
+            <img src="../../public/img/icons/hearth.png" alt="Points Icon" class="icon" />
             {{ post.score }} points
           </div>
           <div class="post-user">
-            <img src="@/assets/user.png" alt="User Icon" class="icon" />
+            <img src="../../public/img/icons/user.png" alt="User Icon" class="icon" />
             by {{ post.by }}
           </div>
           <div class="post-time">
-            <img src="@/assets/clock.png" alt="Time Icon" class="icon" />
+            <img src="../../public/img/icons/clock.png" alt="Time Icon" class="icon" />
             {{ formatTime(post.time) }}
           </div>
         </div>
@@ -32,7 +34,7 @@
 </template>
 
 <script>
-import { formatTime } from '@/utils'; // Assuming you already have a formatTime function
+import { formatTime } from '@/utils';
 
 export default {
   data() {
@@ -42,7 +44,7 @@ export default {
     };
   },
   created() {
-    this.fetchPosts(); // Initial fetch when the component is created
+    this.fetchPosts(); // Initial fetch
   },
   watch: {
     // Watch for changes in the route path and re-fetch posts
@@ -86,7 +88,7 @@ export default {
       } catch (error) {
         console.error("Error fetching posts:", error);
       } finally {
-        this.loading = false; // Hide loading text when posts are fetched
+        this.loading = false;
       }
     },
     formatTime,
@@ -94,7 +96,9 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
+@import "../assets/style.css";
+
 .post-list-container {
   padding: 20px;
 }
@@ -134,28 +138,5 @@ ul {
 
 .post-link:hover {
   color: #3498db;
-}
-
-/* Metadata Styles */
-.post-metadata {
-  display: flex;
-  justify-content: flex-start;
-  margin-top: 10px;
-  font-size: 1rem;
-  color: #7f8c8d;
-}
-
-.post-points,
-.post-user,
-.post-time {
-  display: flex;
-  align-items: center;
-  margin-right: 10px;
-}
-
-.icon {
-  width: 16px;
-  height: 16px;
-  margin-right: 5px;
 }
 </style>

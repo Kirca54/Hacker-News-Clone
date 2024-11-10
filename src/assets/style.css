@@ -1,0 +1,22 @@
+/* Post Metadata Styles */
+.post-metadata {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 10px;
+    font-size: 1rem;
+    color: #7f8c8d;
+}
+
+.post-points,
+.post-user,
+.post-time {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.icon {
+    width: 16px;
+    height: 16px;
+    margin-right: 5px;
+}

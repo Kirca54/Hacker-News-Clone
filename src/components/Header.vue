@@ -2,7 +2,7 @@
   <header class="header">
     <div class="logo-container">
       <!-- Logo -->
-      <img src="@/assets/HNLogo.png" alt="Hacker News Logo" class="logo" />
+      <img src="../../public/img/icons/HNLogo.png" alt="Hacker News Logo" class="logo" />
       <!-- Text split into two lines -->
       <div class="brand-name">
         <h1>Search</h1>
