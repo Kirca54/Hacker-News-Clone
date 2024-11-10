@@ -19,18 +19,19 @@
     <!-- Comments section, if there are comments -->
     <div v-if="post.kids && post.kids.length" class="comments-section">
       <h3>Comments</h3>
-      <div v-for="comment in post.comments" :key="comment.id" class="comment">
-        <div class="comment-header">
-          <span class="username">{{ comment.by || 'Anonymous' }}</span>
-        </div>
-        <p v-html="comment.text" class="comment-text"></p>
-      </div>
+      <Comment :comment="comment" v-for="comment in post.comments" :key="comment.id" />
     </div>
   </div>
 </template>
 
 <script>
+// Import the Comment component
+import Comment from './Comment.vue';
+
 export default {
+  components: {
+    Comment, // Register the Comment component here
+  },
   data() {
     return {
       post: {},
@@ -38,7 +39,7 @@ export default {
     };
   },
   async created() {
-    const postId = this.$route.params.id; // Get the post ID from the URL
+    const postId = this.$route.params.id;
     try {
       const postResponse = await fetch(`https://hacker-news.firebaseio.com/v0/item/${postId}.json?print=pretty`);
       const post = await postResponse.json();
@@ -46,8 +47,7 @@ export default {
 
       // Fetch comments if there are any
       if (post.kids && post.kids.length) {
-        const commentPromises = post.kids.map(id => fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json?print=pretty`).then(res => res.json()));
-        this.post.comments = await Promise.all(commentPromises);
+        this.post.comments = await this.fetchComments(post.kids);
       }
     } catch (error) {
       console.error("Error fetching post details:", error);
@@ -55,8 +55,25 @@ export default {
       this.loading = false;
     }
   },
+  methods: {
+    async fetchComments(commentIds) {
+      const commentPromises = commentIds.map(id =>
+          fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json?print=pretty`).then(res => res.json())
+      );
+      const comments = await Promise.all(commentPromises);
+
+      // Recursively fetch replies for each comment
+      for (const comment of comments) {
+        if (comment.kids && comment.kids.length) {
+          comment.replies = await this.fetchComments(comment.kids);
+        }
+      }
+      return comments;
+    },
+  },
 };
 </script>
+
 
 <style>
 .post-detail-container {
