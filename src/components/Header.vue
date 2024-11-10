@@ -22,6 +22,13 @@
         v-model="searchQuery"
         @keyup.enter="searchPosts"
     />
+
+    <!-- Algolia Logo on the right side of the bar -->
+    <img
+        src="../../public/img/algolia-vector-logo-2023.png"
+        alt="Algolia Logo"
+        class="algolia-logo"
+    />
   </header>
 </template>
 
@@ -44,7 +51,7 @@ export default {
 <style scoped>
 .header {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   padding: 10px 20px;
   background-color: white;
@@ -54,7 +61,7 @@ export default {
 .logo-container {
   display: flex;
   align-items: center;
-  margin-right: 50px;
+  margin-right: 20px;
 }
 
 .logo {
@@ -96,5 +103,11 @@ export default {
   border: 1px solid #ccc;
   border-radius: 4px;
   width: 400px; /* Keep the bar long */
+}
+
+.algolia-logo {
+  width: 150px; /* Adjust the size as needed */
+  height: auto;
+  margin-left: 10px; /* Space between search bar and logo */
 }
 </style>
