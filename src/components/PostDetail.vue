@@ -138,28 +138,4 @@ export default {
   color: #2c3e50;
   margin-bottom: 10px;
 }
-
-.comment {
-  background-color: #ffffff;
-  padding: 15px;
-  margin: 10px 0;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.comment-header {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.username {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-.comment-text {
-  color: #555;
-  margin: 0;
-}
 </style>
