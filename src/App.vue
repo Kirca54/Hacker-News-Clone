@@ -10,7 +10,7 @@
 
       <!-- Main Content Area -->
       <div class="content-area">
-        <router-view :searchQuery="searchQuery"></router-view>
+        <router-view :searchQuery="searchQuery" />
       </div>
     </div>
   </div>
@@ -36,6 +36,13 @@ export default {
       this.searchQuery = query;
     },
   },
+  watch: {
+    $route(to, from) {
+      if (to.name === 'PostDetail' || to.name === 'HotPosts') {
+        this.searchQuery = '';
+      }
+    }
+  }
 };
 </script>
 

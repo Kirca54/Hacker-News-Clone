@@ -44,11 +44,20 @@ export default {
     searchPosts() {
       this.$emit('search', this.searchQuery);
     },
+    clearSearch() {
+      this.searchQuery = '';
+      this.$emit('search', '');
+    },
   },
+  watch: {
+    $route(to, from) {
+      this.clearSearch();
+    }
+  }
 };
 </script>
 
-<style scoped>
+<style>
 .header {
   display: flex;
   justify-content: flex-start;
