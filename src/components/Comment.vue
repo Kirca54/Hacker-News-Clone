@@ -3,6 +3,7 @@
     <div class="comment">
       <div class="comment-header">
         <span class="username">{{ comment.by || 'Anonymous' }}</span>
+        <span class="comment-time">{{ formatTime(comment.time) }}</span>
       </div>
       <p v-html="comment.text" class="comment-text"></p>
     </div>
@@ -15,6 +16,8 @@
 </template>
 
 <script>
+import { formatTime } from '@/utils';
+
 export default {
   props: {
     comment: Object,
@@ -23,10 +26,15 @@ export default {
       default: 0,
     },
   },
+  methods: {
+    formatTime,
+  },
 };
 </script>
 
-<style>
+<style scoped>
+@import "../assets/style.css";
+
 .comment-container {
   margin-top: 10px;
 }
@@ -42,6 +50,17 @@ export default {
   font-weight: bold;
   color: #2c3e50;
   margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.username {
+  margin-right: 10px;
+}
+
+.comment-time {
+  font-size: 0.85rem;
+  color: #888;
 }
 
 .comment-text {
