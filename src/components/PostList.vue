@@ -16,12 +16,6 @@
 
 <script>
 export default {
-  props: {
-    isHot: {
-      type: Boolean,
-      default: false, // Defaults to false if no prop is passed
-    },
-  },
   data() {
     return {
       posts: [],
@@ -32,18 +26,36 @@ export default {
     this.fetchPosts(); // Initial fetch when the component is created
   },
   watch: {
-    // Watch for changes in the 'isHot' prop and refetch posts
-    isHot() {
-      this.loading = true; // Show loading text when switching routes
-      this.fetchPosts(); // Re-fetch posts whenever the 'isHot' prop changes
-    }
+    // Watch for changes in the route path and re-fetch posts
+    '$route.path'() {
+      this.loading = true; // Show loading message when route changes
+      this.fetchPosts(); // Fetch posts based on the new route
+    },
   },
   methods: {
     async fetchPosts() {
       try {
-        const url = this.isHot
-            ? 'https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty' // Hot posts (top posts)
-            : 'https://hacker-news.firebaseio.com/v0/newstories.json?print=pretty'; // New posts endpoint
+        let url = '';
+        switch (this.$route.path) {
+          case '/hot':
+            url = 'https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty'; // Hot posts
+            break;
+          case '/show':
+            url = 'https://hacker-news.firebaseio.com/v0/showstories.json?print=pretty'; // Show posts
+            break;
+          case '/ask':
+            url = 'https://hacker-news.firebaseio.com/v0/askstories.json?print=pretty'; // Ask posts
+            break;
+          case '/polls':
+            url = 'https://hacker-news.firebaseio.com/v0/pollstories.json?print=pretty'; // Polls posts
+            break;
+          case '/jobs':
+            url = 'https://hacker-news.firebaseio.com/v0/jobstories.json?print=pretty'; // Jobs posts
+            break;
+          default:
+            url = 'https://hacker-news.firebaseio.com/v0/newstories.json?print=pretty'; // Default to New posts
+            break;
+        }
         const response = await fetch(url);
         const postIds = await response.json();
         const posts = [];

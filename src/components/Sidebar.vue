@@ -1,14 +1,18 @@
 <template>
   <div class="sidebar">
     <ul class="menu-list">
+      <!-- All posts route -->
       <li><router-link to="/">All</router-link></li>
+      <!-- Hot posts route -->
       <li><router-link to="/hot">Hot</router-link></li>
-      <li><a href="#">New</a></li>
-      <li><a href="#">Top</a></li>
-      <li><a href="#">Show</a></li>
-      <li><a href="#">Ask</a></li>
-      <li><a href="#">Jobs</a></li>
-      <li><a href="#">Submit</a></li>
+      <!-- Show HN -->
+      <li><router-link to="/show">Show HN</router-link></li>
+      <!-- Ask HN -->
+      <li><router-link to="/ask">Ask HN</router-link></li>
+      <!-- Polls -->
+      <li><router-link to="/polls">Polls</router-link></li>
+      <!-- Jobs -->
+      <li><router-link to="/jobs">Jobs</router-link></li>
     </ul>
   </div>
 </template>
