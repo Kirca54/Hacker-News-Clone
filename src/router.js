@@ -2,48 +2,46 @@ import { createRouter, createWebHistory } from 'vue-router';
 import PostList from './components/PostList.vue';
 import PostDetail from './components/PostDetail.vue';
 
-// Define the routes for the app
 const routes = [
     {
         path: '/',
         name: 'All',
         component: PostList,
-        // Fetch all posts by default
+        props: route => ({ searchQuery: route.query.search || '' }), // Pass search query as a prop
     },
     {
         path: '/hot',
         name: 'Hot',
         component: PostList,
-        // Fetch hot posts
+        props: route => ({ searchQuery: route.query.search || '' }),
     },
     {
         path: '/show',
         name: 'Show HN',
         component: PostList,
-        // Fetch Show HN posts
+        props: route => ({ searchQuery: route.query.search || '' }),
     },
     {
         path: '/ask',
         name: 'Ask HN',
         component: PostList,
-        // Fetch Ask HN posts
+        props: route => ({ searchQuery: route.query.search || '' }),
     },
     {
         path: '/polls',
         name: 'Polls',
         component: PostList,
-        // Fetch Polls posts
+        props: route => ({ searchQuery: route.query.search || '' }),
     },
     {
         path: '/jobs',
         name: 'Jobs',
         component: PostList,
-        // Fetch Jobs posts
+        props: route => ({ searchQuery: route.query.search || '' }),
     },
     { path: '/post/:id', component: PostDetail },
 ];
 
-// Create the Vue Router instance
 const router = createRouter({
     history: createWebHistory(),
     routes,

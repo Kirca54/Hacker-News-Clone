@@ -10,8 +10,7 @@
 
       <!-- Main Content Area -->
       <div class="content-area">
-        <!-- PostList Component -->
-        <PostList :searchQuery="searchQuery" />
+        <router-view :searchQuery="searchQuery"></router-view>
       </div>
     </div>
   </div>
@@ -20,14 +19,12 @@
 <script>
 import Header from './components/Header.vue';
 import Sidebar from './components/Sidebar.vue';
-import PostList from './components/PostList.vue';
 
 export default {
   name: 'App',
   components: {
     Header,
     Sidebar,
-    PostList,
   },
   data() {
     return {
