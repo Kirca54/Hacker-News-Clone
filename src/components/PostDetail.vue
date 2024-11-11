@@ -22,6 +22,9 @@
         <img src="../../public/img/icons/clock.png" alt="Time Icon" class="icon" />
         {{ formatTime(post.time) }}
       </div>
+      <div class="post-share">
+        <img src="../../public/img/icons/share.png" alt="Share Icon" class="icon" @click="sharePost(post.url)" />
+      </div>
     </div>
 
     <br>
@@ -43,7 +46,7 @@
 
 <script>
 import Comment from './Comment.vue';
-import { formatTime } from '@/utils';
+import {formatTime, sharePost} from '@/utils';
 
 export default {
   components: {
@@ -88,6 +91,7 @@ export default {
       return comments;
     },
     formatTime,
+    sharePost,
   },
 };
 </script>

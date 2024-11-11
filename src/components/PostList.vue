@@ -25,6 +25,13 @@
             <img src="../../public/img/icons/clock.png" alt="Time Icon" class="icon" />
             {{ formatTime(post.time) }}
           </div>
+          <div class="post-comments">
+            <img src="../../public/img/icons/comment.png" alt="Comments Icon" class="icon" />
+            {{ post.kids ? post.kids.length : 0 }} comments
+          </div>
+          <div class="post-share">
+            <img src="../../public/img/icons/share.png" alt="Share Icon" class="icon" @click="sharePost(post.url)" />
+          </div>
         </div>
       </li>
     </ul>
@@ -32,7 +39,7 @@
 </template>
 
 <script>
-import { formatTime } from '@/utils';
+import {formatTime, sharePost} from '@/utils';
 
 export default {
   props: {
@@ -45,18 +52,18 @@ export default {
     };
   },
   created() {
-    this.fetchPosts(); // Initial fetch
+    this.fetchPosts();
   },
   watch: {
     // Watch for changes in the route path and re-fetch posts
     '$route.path'() {
-      this.loading = true; // Show loading message when route changes
-      this.fetchPosts(); // Fetch posts based on the new route
+      this.loading = true;
+      this.fetchPosts();
     },
     // Watch for changes in the search query and trigger search
     searchQuery(newQuery) {
-      this.loading = true; // Show loading message when a search query is entered
-      this.fetchSearchResults(newQuery); // Fetch search results based on the new query
+      this.loading = true;
+      this.fetchSearchResults(newQuery);
     },
   },
   methods: {
@@ -88,7 +95,8 @@ export default {
         const posts = [];
         for (let i = 0; i < 10; i++) {
           const post = await fetch(`https://hacker-news.firebaseio.com/v0/item/${postIds[i]}.json?print=pretty`);
-          posts.push(await post.json());
+          const postData = await post.json();
+          posts.push(postData);
         }
         this.posts = posts;
       } catch (error) {
@@ -113,6 +121,7 @@ export default {
       }
     },
     formatTime,
+    sharePost,
   },
 };
 </script>

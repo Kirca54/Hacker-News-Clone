@@ -14,3 +14,18 @@ export function formatTime(timestamp) {
         return `${Math.floor(diff / 31536000)} years ago`;
     }
 }
+export function sharePost(url) {
+    if (navigator.share) {
+        // Check if the browser supports the Web Share API
+        navigator.share({
+            title: 'Check out this post on Hacker News!',
+            url: url,
+        })
+            .then(() => console.log('Post shared successfully!'))
+            .catch((error) => console.error('Error sharing post:', error));
+    } else {
+        // Fallback: Use window.open to share the post URL
+        const shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}`;
+        window.open(shareUrl, '_blank');
+    }
+}
